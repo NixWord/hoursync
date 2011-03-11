@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Simple tool to find free time to set up an appointment
+ * Simple tool to find free time to set up a meeting
  * @package HourSync
  * @author NixWord
  *
@@ -26,6 +26,11 @@ class HourSync {
 	public function loadCalendars($useCache = true) {
 		foreach($this->calendars as $calendar) {
 			$ical = file_get_contents($calendar);
+
+			if($ical == false) {
+				throw new CalendarLoaderException();
+			}
+
 			$hash = md5($calendar);
 			$cache = './cache/' . $hash;
 			file_put_contents($cache, $ical);
