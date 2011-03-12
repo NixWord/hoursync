@@ -28,12 +28,9 @@ class HourSyncTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(count($calendars), 0);
 	}
 
-	/**
-	 * @expectedException CalendarLoaderException
-	 */
 	public function testLoadCalendars_unreadable_calendar() {
 		$this->hoursync->addCalendarURI(self::UNREADABLE_CALENDAR_URI);
-		$this->hoursync->loadCalendars();
+		$this->assertFalse($this->hoursync->loadCalendars());
 	}
 
 	public function testLoadCalendars_without_cache() {

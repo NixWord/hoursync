@@ -1,5 +1,7 @@
 <?php
 
+require_once 'CalendarLoader.php';
+
 /**
  * Simple tool to find free time to set up a meeting
  * @package HourSync
@@ -21,23 +23,19 @@ class HourSync {
 	 * Load calendars
 	 * @param bool $useCache
 	 * @return true on success
-	 * @throws CalendarLoaderException
 	 */
 	public function loadCalendars($useCache = true) {
+		$success = true;
 		foreach($this->calendars as $calendar) {
-			$ical = file_get_contents($calendar);
-
-			if($ical == false) {
-				throw new CalendarLoaderException();
+			try {
+				CalendarLoader::load($calendar);
 			}
-
-			$hash = md5($calendar);
-			$cache = './cache/' . $hash;
-			file_put_contents($cache, $ical);
-			touch($cache);
+			catch(CalendarLoaderException $e) {
+				$success = false;
+			}
 		}
 
-		return true;
+		return $success;
 	}
 
 	/**
