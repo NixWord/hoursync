@@ -1,6 +1,7 @@
 <?php
 
 require_once 'CalendarLoader.php';
+require_once 'Meeting.php';
 
 /**
  * Simple tool to find free time to set up a meeting
@@ -36,6 +37,15 @@ class HourSync {
 		}
 
 		return $success;
+	}
+
+	/**
+	 * Find place for meeting
+	 * @param Meeting $meeting
+	 * @return mixed
+	 */
+	public function findPlaceFor($meeting) {
+		return false;
 	}
 
 	/**

@@ -3,6 +3,11 @@
 require_once 'CalendarLoaderException.php';
 
 class CalendarLoader {
+	/**
+	 * Load a calendar URI
+	 * @param string $calendarURI
+	 * @throws CalendarLoaderException on invalid URI
+	 */
 	public static function load($calendarURI) {
 		$ical = @file_get_contents($calendarURI);
 

@@ -47,6 +47,17 @@ class HourSyncTest extends PHPUnit_Framework_TestCase {
 		$this->assertFileExists($cache);
 	}
 
-	public static function tearDownAfterClass() {
+	public function testFindPlaceFor() {
+		$this->hoursync->addCalendarURI(self::VALID_CALENDAR_URI);
+		$this->hoursync->loadCalendars();
+
+		$meeting = new Meeting();
+		$meeting->setFrequency(Meeting::WEEKLY);
+		$meeting->setDuration(2);
+
+		$place = $this->hoursync->findPlaceFor($meeting);
+
+		$this->assertNotEquals($place, false);
 	}
+
 }
